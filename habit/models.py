@@ -28,7 +28,7 @@ class Habit(TimeStampModel):
 
     time = models.TimeField(
         default=dt_time( 9, 0 ),
-        verbose_name="Время выполнения"
+        verbose_name="Время начала действия"
     )
 
     action = models.CharField(
