@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from users.models import User
 
+from django.utils import timezone
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 class UserModelSerializer(serializers.ModelSerializer):
     """Сериализатор модели User, хэширует пароль."""
     password = serializers.CharField(write_only=True, min_length=8)
@@ -14,3 +17,17 @@ class UserModelSerializer(serializers.ModelSerializer):
         """Хэшируем пароль перед сохранением."""
         password = validated_data.pop("password")
         return User.objects.create_user(password=password, **validated_data)
+
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Сериализатор для обновления поля last_login при логине пользователя"""
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        # Обновляем last_login
+        user = self.user
+        user.last_login = timezone.now()
+        user.save(update_fields=["last_login"])
+
+        return data

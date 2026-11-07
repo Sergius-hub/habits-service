@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #
     'rest_framework',
+    'rest_framework_simplejwt',
     'users',
     'habit',
 ]
@@ -140,3 +142,18 @@ MAILERS = {
 
 # 1. Аутентификация
 AUTH_USER_MODEL = 'users.User'
+
+# 2. Настройки drf
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# 3. simplejwt
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Время жизни access токена
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Время жизни refresh токена
+    # дополнительно для обновления поля last_login
+    'TOKEN_OBTAIN_SERIALIZER': 'users.serializers.CustomTokenObtainPairSerializer',
+}
