@@ -18,4 +18,5 @@ class OwnerQuerysetMixin:
             return qs
 
         # Остальные — только себя
-        return qs.filter(**{self.owner_field: user})
+        value = user.pk if self.owner_field == "pk" else user
+        return qs.filter(**{self.owner_field: value})
