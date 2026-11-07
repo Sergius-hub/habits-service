@@ -1,8 +1,5 @@
 from datetime import timedelta
-
-from django.core.validators import MaxValueValidator
 from rest_framework import serializers
-
 from habit.models import Habit
 
 
@@ -10,6 +7,7 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = (
+            "id",
             "user",
             "action",
             "place",
