@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_celery_beat',
     'users',
     'habit',
 ]
@@ -157,3 +158,21 @@ SIMPLE_JWT = {
     # дополнительно для обновления поля last_login
     'TOKEN_OBTAIN_SERIALIZER': 'users.serializers.CustomTokenObtainPairSerializer',
 }
+
+# Redis
+REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
+
+# Celery
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = f'redis://:{REDIS_PASSWORD}@localhost:6379/0'
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = f'redis://:{REDIS_PASSWORD}@localhost:6379/1'
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = TIME_ZONE
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
+# Форматы
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
