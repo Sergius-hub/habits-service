@@ -66,6 +66,13 @@ class User(AbstractUser):
         verbose_name="Город",
     )
 
+    chat_id = models.BigIntegerField(
+        null=True,
+        blank=True,
+        unique=True,
+        verbose_name="Telegram chat_id",
+    )
+
     # Использование кастомного менеджера
     objects = UserManager()
 
