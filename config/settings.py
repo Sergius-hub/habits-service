@@ -177,4 +177,13 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
+# Celery-beat
+#CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BEAT_SCHEDULE = {
+    'deactivate-inactive-users': {
+        'task': 'users.tasks.create_periodic_tasks',    # Путь к задаче
+        'schedule': timedelta(minutes=10),              # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+}
+
 TG_API_KEY = os.environ.get('TG_API_KEY')
