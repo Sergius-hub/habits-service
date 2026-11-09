@@ -160,7 +160,7 @@ SIMPLE_JWT = {
 }
 
 # Redis
-REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 
 # Celery
 # URL-адрес брокера сообщений
@@ -176,3 +176,5 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 # Форматы
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+
+TG_API_KEY = os.environ.get('TG_API_KEY')

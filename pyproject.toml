@@ -17,10 +17,16 @@ dependencies = [
     "eventlet (>=0.41.3,<0.42.0)",
     "celery (>=5.7.0,<6.0.0)",
     "redis (>=8.1.0,<9.0.0)",
-    "packaging (>=26.3,<27.0)"
+    "packaging (>=26.3,<27.0)",
+    "requests (>=2.34.2,<3.0.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+lint = [
+    "isort (>=9.0.2,<10.0.0)"
+]
